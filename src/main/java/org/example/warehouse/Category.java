@@ -1,13 +1,15 @@
 package org.example.warehouse;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Category {
-
+    private static final Map<String, Category> categories = new HashMap<>();
     private final String name;
 
     private Category(String name) {
-        this.name = name;
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     public String getName() {
@@ -15,10 +17,10 @@ public class Category {
     }
 
     public static Category of(String name) {
-        if(name == null) {
+        if(name == null)
             throw new IllegalArgumentException("Category name can't be null");
-        }
-        return new Category(name);
+
+        return categories.computeIfAbsent(name.toLowerCase(), Category::new);
     }
 
     @Override
