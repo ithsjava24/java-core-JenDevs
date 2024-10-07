@@ -101,17 +101,6 @@ public class Warehouse {
     public Map<Category, List<ProductRecord>> getProductsGroupedByCategories() {
         return products.stream()
                 .collect(Collectors.groupingBy(ProductRecord::category, Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList)));
-
-//        Map<Category, List<ProductRecord>> groupedProducts = new HashMap<>();
-//        for (ProductRecord product : products) {
-//            Category category = product.category();
-//
-//            groupedProducts.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
-//        }
-//
-//        groupedProducts.replaceAll(((category, productList) -> List.copyOf(productList)));
-//
-//        return Collections.unmodifiableMap(groupedProducts);
     }
 
     public List<ProductRecord> getProductsBy(Category category)  {
@@ -119,21 +108,10 @@ public class Warehouse {
                 .filter(product -> product.category().equals(category))
                 .toList();
 
-//        return List.copyOf(products.stream()
-//                .filter(product -> product.category().equals(category))
-//                .toList());
     }
 
     public Optional<ProductRecord> getProductById(UUID uuid) {
-//        if(products.isEmpty())
-//            throw new RuntimeException("Product list is empty");
-//
-//        for(ProductRecord product : products) {
-//            if(product.uuid().equals(uuid)) {
-//                return Optional.of(product);
-//            }
-//        }
-//        return Optional.empty();
+
         return products.stream()
                 .filter(product -> product.uuid().equals(uuid))
                 .findFirst();
