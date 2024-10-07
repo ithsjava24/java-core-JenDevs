@@ -4,18 +4,17 @@ package org.example.warehouse;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 public class Warehouse {
 
     private String name;
     private static Warehouse instance;
-    private List<ProductRecord> products = new ArrayList<>();
-    private List<ProductRecord> changedProducts = new ArrayList<>();
+    private final List<ProductRecord> products = new ArrayList<>();
+    private final List<ProductRecord> changedProducts = new ArrayList<>();
 
     private Warehouse(String name) {
         this.name = name;
-
     }
 
     public static Warehouse getInstance() {
@@ -73,7 +72,7 @@ public class Warehouse {
 
     public void updateProductPrice(UUID uuid, BigDecimal price) {
         boolean productFound = false;
-        ProductRecord oldProduct = null;
+        ProductRecord oldProduct;
 
         for(ProductRecord product : products) {
             if(uuid.equals(product.uuid())) {
@@ -96,7 +95,6 @@ public class Warehouse {
             throw new IllegalArgumentException("Product with that id doesn't exist.");
         }
     }
-
 
     public Map<Category, List<ProductRecord>> getProductsGroupedByCategories() {
         return products.stream()
